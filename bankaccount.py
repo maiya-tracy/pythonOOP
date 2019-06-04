@@ -1,3 +1,22 @@
+class User:
+	def __init__(self, username, email_address):
+		self.name = username
+		self.email = email_address
+		self.account = [BankAccount(int_rate = 2, balance = 0)]
+	def make_deposit(self, amount, whichOne):
+		print(self.name + " deposited $" + str(amount))
+		self.account[whichOne].account_balance+=amount
+		return self
+	def make_withdrawal(self, amount, whichOne):
+		if amount > self.account[whichOne].account_balance:
+			print("Not enough money")
+		else:
+			self.account[whichOne].account_balance-=amount
+			print(self.name + " withdrew $" + str(amount))
+		return self
+	def display_user_balance(self, whichOne):
+		print("User: " + self.name + ", Balance: $" + str(self.account[whichOne].account_balance))
+		return self
 class BankAccount:
 	def __init__(self, int_rate, balance):
 		self.interest_rate = int_rate
@@ -22,6 +41,14 @@ class BankAccount:
 			self.account_balance*=(1 + self.interest_rate/100)
 			print(1 + self.interest_rate/100)
 		return self
+
+maiya = User("Maiya T", "m@yahoo.com")
+maiya.account.append(BankAccount(5,120))
+maiya.account[0].display_account_info()
+maiya.display_user_balance(0)
+maiya.account[1].display_account_info()
+maiya.display_user_balance(1)
+
 
 first_account = BankAccount(10, 100)
 second_account = BankAccount(15, 5000)
